@@ -1,0 +1,43 @@
+h1,
+hr,
+#book-form {
+  max-width: 80%;
+  margin: auto;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+hr {
+  margin: 20px auto;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+table {
+  width: 80%;
+  margin: auto;
+  border-collapse: collapse;
+  /* border-spacing: inherit; */
+}
+
+td,
+th {
+  border: 1px solid #f2f2f2;
+  text-align: left;
+  padding: 8px;
+}
+/* 
+tr {
+  text-align: center;
+} */
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
