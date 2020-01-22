@@ -40,6 +40,12 @@ UI.prototype.addBookToList = function(book) {
   table.append(row);
 };
 
+UI.prototype.resetInputFields = function() {
+  bookTitle.value = "";
+  bookAuthor.value = "";
+  bookISBN.value = "";
+};
+
 // Add event listener for submit button
 submitBtn.addEventListener("click", function() {
   // Get form values
@@ -58,12 +64,6 @@ submitBtn.addEventListener("click", function() {
   ui.addBookToList(book);
 
   // Clear input form fields
-  resetInputFields();
+  ui.resetInputFields();
   console.log(books);
 });
-
-function resetInputFields() {
-  bookTitle.value = "";
-  bookAuthor.value = "";
-  bookISBN.value = "";
-}
