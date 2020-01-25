@@ -47,21 +47,13 @@ UI.prototype.resetInputFields = function() {
   bookISBN.value = "";
 };
 
-UI.prototype.successMessage = function() {
-  // create new paragraph element
+UI.prototype.displayMessage = function(message, className) {
+  //create new paragraph element
   const paraEL = document.createElement("p");
   // set inner html of paragraph element
-  paraEL.textContent = "Book successfully added!";
-  // append paragraph element to display div
-  displayMessageUI.append(paraEL);
-};
-
-UI.prototype.errorMessage = function() {
-  // create new paragraph element
-  const paraEL = document.createElement("p");
-  // set inner html of paragraph element
-  paraEL.textContent =
-    "Book was not added due to empty form field! Please try again.";
+  paraEL.textContent = message;
+  // add classname to paragraph element
+  paraEL.classList.add(`${className}`);
   // append paragraph element to display div
   displayMessageUI.append(paraEL);
 
@@ -88,14 +80,18 @@ submitBtn.addEventListener("click", function() {
   // Validate form fields which will update UI
   if (title === "" || author === "" || isbn === "") {
     // Display error message
-    ui.errorMessage();
+    ui.displayMessage(
+      "Book was not added due to empty form field! Please try again.",
+      "failed"
+    );
+    // ui.errorMessage();
   } else {
     // Add book to list, pass book object
     ui.addBookToList(book);
 
     // Display success message
-    ui.successMessage();
-
+    // ui.successMessage();
+    ui.displayMessage("Book successfully added!", "success");
     // Clear input form fields
     ui.resetInputFields();
   }
