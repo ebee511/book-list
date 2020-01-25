@@ -3,6 +3,7 @@ let submitBtn = document.getElementById("submitBtn");
 let bookTitle = document.getElementById("book-title");
 let bookAuthor = document.getElementById("author");
 let bookISBN = document.getElementById("isbn");
+let displayMessageUI = document.getElementById("message");
 let table = document.getElementById("table");
 let books = [];
 
@@ -46,6 +47,30 @@ UI.prototype.resetInputFields = function() {
   bookISBN.value = "";
 };
 
+UI.prototype.successMessage = function() {
+  // create new paragraph element
+  const paraEL = document.createElement("p");
+  // set inner html of paragraph element
+  paraEL.textContent = "Book successfully added!";
+  // append paragraph element to display div
+  displayMessageUI.append(paraEL);
+};
+
+UI.prototype.errorMessage = function() {
+  // create new paragraph element
+  const paraEL = document.createElement("p");
+  // set inner html of paragraph element
+  paraEL.textContent =
+    "Book was not added due to empty form field! Please try again.";
+  // append paragraph element to display div
+  displayMessageUI.append(paraEL);
+
+  // timeout after 3 seconds, grab element we want to remove
+  setTimeout(function() {
+    paraEL.remove();
+  }, 3000);
+};
+
 // Add event listener for submit button
 submitBtn.addEventListener("click", function() {
   // Get form values
@@ -60,10 +85,18 @@ submitBtn.addEventListener("click", function() {
   // Instantiate UI object to add book to table
   const ui = new UI();
 
-  // Add book to list, pass book object
-  ui.addBookToList(book);
+  // Validate form fields which will update UI
+  if (title === "" || author === "" || isbn === "") {
+    // Display error message
+    ui.errorMessage();
+  } else {
+    // Add book to list, pass book object
+    ui.addBookToList(book);
 
-  // Clear input form fields
-  ui.resetInputFields();
-  console.log(books);
+    // Display success message
+    ui.successMessage();
+
+    // Clear input form fields
+    ui.resetInputFields();
+  }
 });
