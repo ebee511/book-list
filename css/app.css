@@ -1,6 +1,8 @@
 h1,
 hr,
-#book-form {
+#book-form,
+.success,
+.failed {
   max-width: 80%;
   margin: auto;
 }
@@ -44,4 +46,18 @@ tr:nth-child(even) {
 
 a:hover {
   color: red;
+}
+
+.success,
+.failed {
+  padding: 3px;
+  margin-bottom: 10px;
+}
+
+.failed {
+  background-color: red;
+}
+
+.success {
+  background-color: green;
 }
