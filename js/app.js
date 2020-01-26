@@ -63,6 +63,12 @@ UI.prototype.displayMessage = function(message, className) {
   }, 3000);
 };
 
+UI.prototype.removeBook = function(e) {
+  if (e.target.nodeName === "A") {
+    e.target.parentNode.parentNode.remove();
+  }
+};
+
 // Add event listener for submit button
 submitBtn.addEventListener("click", function() {
   // Get form values
@@ -72,7 +78,6 @@ submitBtn.addEventListener("click", function() {
 
   // Instantiate new book object/constructor
   let book = new Book(title, author, isbn);
-  books.push(book);
 
   // Instantiate UI object to add book to table
   const ui = new UI();
@@ -95,4 +100,11 @@ submitBtn.addEventListener("click", function() {
     // Clear input form fields
     ui.resetInputFields();
   }
+});
+
+table.addEventListener("click", function(e) {
+  // Instantiate UI object to add book to table
+  const ui = new UI();
+  // Delete book
+  ui.removeBook(e);
 });
