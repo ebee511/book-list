@@ -48,6 +48,10 @@ UI.prototype.resetInputFields = function() {
 };
 
 UI.prototype.displayMessage = function(message, className) {
+  //check for existing message
+  if (document.querySelector(".failed") || document.querySelector(".success")) {
+    return;
+  }
   //create new paragraph element
   const paraEL = document.createElement("p");
   // set inner html of paragraph element
@@ -107,4 +111,6 @@ table.addEventListener("click", function(e) {
   const ui = new UI();
   // Delete book
   ui.removeBook(e);
+  // Show message
+  ui.displayMessage("Book removed!", "success");
 });
