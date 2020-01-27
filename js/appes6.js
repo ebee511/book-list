@@ -77,6 +77,49 @@ class UI {
   }
 }
 
+class Store {
+  static getBooks() {
+    let books;
+    if (localStorage.getItem("books") === null) {
+      books = [];
+    } else {
+      books = JSON.parse(localStorage.getItem("books"));
+    }
+    return books;
+  }
+
+  static displayBooks() {
+    const books = Store.getBooks();
+
+    books.forEach(book => {
+      const ui = new UI();
+
+      ui.addBookToList(book);
+    });
+  }
+
+  static addBook(book) {
+    const books = Store.getBooks();
+
+    books.push(book);
+    localStorage.setItem("books", JSON.stringify(books));
+  }
+
+  static removeBook(isbn) {
+    const books = Store.getBooks();
+
+    books.forEach(function(book, index) {
+      if (book.isbn === isbn) {
+        books.splice(index, 1);
+      }
+    });
+    localStorage.setItem("books", JSON.stringify(books));
+  }
+}
+
+// DOM Load Event
+document.addEventListener("DOMContentLoaded", Store.displayBooks);
+
 // Add event listener for submit button
 submitBtn.addEventListener("click", function() {
   // Get form values
@@ -96,8 +139,10 @@ submitBtn.addEventListener("click", function() {
       "failed"
     );
   } else {
-    // Add book to list, pass book object
+    // Add book to UI list, pass book object
     ui.addBookToList(book);
+    // Add book to local storage (don't need to instantiate since it is static)
+    Store.addBook(book);
     // Display success message
     ui.displayMessage("Book successfully added!", "success");
     // Clear input form fields
@@ -110,6 +155,8 @@ table.addEventListener("click", function(e) {
   const ui = new UI();
   // Delete book
   ui.removeBook(e);
+  // Remove from local storage
+  Store.removeBook(e.target.parentNode.previousElementSibling.textContent);
   // Show message
   ui.displayMessage("Book removed!", "success");
 });
