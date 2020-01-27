@@ -5,7 +5,6 @@ let bookAuthor = document.getElementById("author");
 let bookISBN = document.getElementById("isbn");
 let displayMessageUI = document.getElementById("message");
 let table = document.getElementById("table");
-let books = [];
 
 // Create book constructor
 function Book(title, author, isbn) {
